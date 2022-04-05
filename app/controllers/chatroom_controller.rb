@@ -1,12 +1,12 @@
 class ChatroomController < ApplicationController
+  before_action :require_user
 
   def index
+    @message = Message.new
     @messages = Message.all
-    @users = User.all
   end
 
   def show
     @message = Message.find(params[:id])
-    @user = User.find(params[:id])
   end
 end
