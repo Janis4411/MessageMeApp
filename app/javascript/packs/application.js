@@ -10,11 +10,22 @@ require("semantic-ui-sass")
 require("@rails/activestorage").start()
 require("channels")
 
+// function to automatically scroll to bottom,
+// when page is reloaded or a new message has been posted
 scroll_bottom = function() {
   if ($('#messages').length > 0) {
     $('#messages').scrollTop($('#messages')[0].scrollHeight);
   }
 }
+
+clear_input_box = function() {
+  $('#message_body').on('keydown', function(e) {
+    if (e.keyCode == 13) {
+      $('button').click();
+      e.target.value = "";
+    };
+  });
+};
 
 $(document).on("turbolinks:load", function() {
   $(".ui.dropdown").dropdown();
@@ -22,6 +33,7 @@ $(document).on("turbolinks:load", function() {
     $(this).closest('.message').transition('fade');
   });
   scroll_bottom();
+  clear_input_box();
 })
 
 
